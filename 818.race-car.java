@@ -1,61 +1,43 @@
-
 class Solution {
 
-    private class CarStatus {
-        int speed, position, steps;
-
-        CarStatus(int speed, int position, int steps) {
-            this.speed = speed;
-            this.position = position;
-            this.steps = steps;
-        }
-
-        String getHash() {
-            return speed + " " + position;
-        }
-
-        CarStatus accelerate() {
-            return new CarStatus(speed << 1, speed + position, steps + 1);
-        }
-
-        CarStatus reverse() {
-            return new CarStatus(speed > 0 ? -1 : 1, position, steps + 1);
-        }
-    }
-
+    private int[] dp;
 
     public int racecar(int target) {
-        final int maxTarget = target << 1;
-        final Queue<CarStatus> queue = new LinkedList<>();
-        final CarStatus first = new CarStatus(1, 0, 0);
-        final Set<String> visited = new HashSet<>();
-        queue.offer(first);
-        visited.add(first.getHash());
+        this.dp = new int[target+1];
+        return dfs(target);
+    }
 
-        while (!queue.isEmpty()) {
+    private int dfs(int target) {
 
-            final CarStatus currStatus = queue.poll();
-            if (currStatus.position == target) return currStatus.steps;
+        if (dp[target] != 0) return dp[target];
 
-            // accelerate
-            final CarStatus accStatus = currStatus.accelerate();
-            if (!visited.contains(accStatus.getHash()) && 
-                accStatus.position > 0 && accStatus.position < maxTarget) {
-                 
-                visited.add(accStatus.getHash());
-                queue.offer(accStatus);
-            }
+        int n = getPow(target);
 
-            // reverse
-            final CarStatus revStatus = currStatus.reverse();
-            if (!visited.contains(revStatus.getHash()) && 
-                revStatus.position > 0 && revStatus.position < maxTarget) {
-                 
-                visited.add(revStatus.getHash());
-                queue.offer(revStatus);
-            }
+        // case 1 : (best case) all accelerate
+        if (pow2(n)-1 == target) {
+            dp[target] = n;
+            return n;
         }
 
-        return -1;
+        // case 2 : overshoot the target and come back and accelrate to reach remaining position
+        dp[target] = 1 + n + dfs(pow2(n)-1-target); // n to reach overshoot position and 1 for taking reverse
+
+        // case 3 : The car reaches 2^(n-1) - 1 and then reverses, accelerates for another A^j in the opposite direction and 
+        // reverses again. Now its position is at 2^(r-1) - 2^j, the remaining subproblem is to go from current position to i with
+        // initial speed, which is dp[target-2^(n-1)+2^j].
+        // so no of steps will be (n-1) + 1 to reach n-1, 1 step to reverse, j step to accelerate, 1 step to reverse again
+        for (int j=0; j<n-1; j++) {
+            dp[target] = Math.min(dp[target], 1 + n + j + dfs(target - pow2(n-1) + pow2(j)));
+        }
+
+        return dp[target];
+    }
+
+    private int pow2(int n) {
+        return 1<<n;
+    }
+
+    private int getPow(int target) {
+        return ((int) (Math.log(target) / Math.log(2))) + 1;
     }
 }
