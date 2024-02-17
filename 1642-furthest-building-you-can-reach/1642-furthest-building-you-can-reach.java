@@ -2,6 +2,7 @@ class Solution {
 
     public int furthestBuildingUsingPQ(int[] height, int bricks, int ladders) {
 
+        // max heap
         final PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Comparator.reverseOrder());
         final int length = height.length;
 
@@ -13,43 +14,27 @@ class Solution {
                 bricks -= difference;
                 priorityQueue.offer(difference);
 
+                // If all bricks are exhausted
                 if (bricks < 0) {
+
+                    // max bricks used so far
                     final int largestDiff = priorityQueue.poll();
                     ladders--;
+
+                    // reclaim max bricks
                     bricks += largestDiff;
+
+                    // if ladders are exhausted
                     if (ladders < 0)
+
+                        // since we moving advance and comparing with prev building
                         return i - 1;
                 }
-
             }
-
         }
 
         return length - 1;
 
-    }
-
-    // recursion - not optimal
-    public int furthestBuilding(int[] height, int bricks, int ladders, int i) {
-        if (i == height.length)
-            return i;
-
-        final int currentHeight = height[i];
-        final int prevHeight = height[i - 1];
-
-        if (currentHeight <= prevHeight)
-            return furthestBuilding(height, bricks, ladders, i + 1);
-
-        final int difference = currentHeight - prevHeight;
-        int usingBricks = i, usingLadders = i;
-        if (bricks > 0 && difference < bricks) {
-            usingBricks = furthestBuilding(height, bricks - difference, ladders, i + 1);
-        }
-        if (ladders > 0) {
-            usingLadders = furthestBuilding(height, bricks, ladders - 1, i + 1);
-        }
-
-        return Math.max(usingBricks, usingLadders);
     }
 
     public int furthestBuilding(int[] heights, int bricks, int ladders) {
