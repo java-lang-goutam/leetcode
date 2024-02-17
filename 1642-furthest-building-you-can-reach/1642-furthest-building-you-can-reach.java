@@ -17,7 +17,7 @@ class Solution {
                     final int largestDiff = priorityQueue.poll();
                     ladders--;
                     bricks += largestDiff;
-                    if (bricks < 0 || ladders < 0)
+                    if (ladders < 0)
                         return i - 1;
                 }
 
