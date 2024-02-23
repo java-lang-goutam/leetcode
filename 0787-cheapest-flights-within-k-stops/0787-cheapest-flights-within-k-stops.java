@@ -1,12 +1,21 @@
 class Solution {
+    
+    private final int INF = Integer.MAX_VALUE;
+    
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        Map<Integer, List<int[]>> adj = new HashMap<>();
+        
+        final List[] adj = new List[n];
+        final int[] dist = new int[n];
+        
+        for (int i=0; i<n; i++) {
+            adj[i] = new ArrayList<>();
+            dist[i] = INF;
+        }
+        
         for (int[] flight : flights) {
-            adj.computeIfAbsent(flight[0], key -> new ArrayList<>()).add(new int[] {flight[1], flight[2]});
+            adj[flight[0]].add(flight);
         }
 
-        int[] dist = new int[n];
-        Arrays.fill(dist, Integer.MAX_VALUE);
         dist[src] = 0;
 
         Queue<int[]> q = new LinkedList<>();
@@ -18,12 +27,11 @@ class Solution {
                 int[] curr = q.poll();
                 int node = curr[0];
                 int distance = curr[1];
+                final List<int[]> neighbours = adj[node];
 
-                if (!adj.containsKey(node)) continue;
-
-                for (int[] next : adj.get(node)) {
-                    int neighbour = next[0];
-                    int price = next[1];
+                for (int[] next : neighbours) {
+                    int neighbour = next[1];
+                    int price = next[2];
                     if (price + distance >= dist[neighbour]) continue;
                     dist[neighbour] = price + distance;
                     q.offer(new int[] {neighbour, dist[neighbour]});
@@ -31,6 +39,6 @@ class Solution {
             }
         }
 
-        return dist[dst] == Integer.MAX_VALUE ? -1 : dist[dst];
+        return dist[dst] == INF ? -1 : dist[dst];
     }
 }
