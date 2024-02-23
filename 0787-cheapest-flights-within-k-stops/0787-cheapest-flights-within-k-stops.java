@@ -1,44 +1,44 @@
 class Solution {
-    
-    private final int INF = Integer.MAX_VALUE;
-    
+
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        
-        final List[] adj = new List[n];
-        final int[] dist = new int[n];
-        
-        for (int i=0; i<n; i++) {
-            adj[i] = new ArrayList<>();
-            dist[i] = INF;
-        }
-        
-        for (int[] flight : flights) {
-            adj[flight[0]].add(flight);
+        final List[] adjacency = new List[n];
+        final int[] minimumDistance = new int[n];
+        final int INF = Integer.MAX_VALUE;
+
+        for (int i = 0; i < n; i++) {
+            adjacency[i] = new ArrayList<int[]>();
+            minimumDistance[i] = INF;
         }
 
-        dist[src] = 0;
+        // Create adjacency metrics
+        for (final int[] flight : flights) {
+            adjacency[flight[0]].add(flight);
+        }
 
-        Queue<int[]> q = new LinkedList<>();
-        q.offer(new int[] {src, 0});
+        final Queue<int[]> queue = new LinkedList<>();
+        minimumDistance[src] = 0;
+        queue.offer(new int[] { src, 0 });
 
-        while (!q.isEmpty() && k-- >= 0) {
-            int sz = q.size();
-            while (sz-- > 0) {
-                int[] curr = q.poll();
-                int node = curr[0];
-                int distance = curr[1];
-                final List<int[]> neighbours = adj[node];
+        while (!queue.isEmpty() && k-- >= 0) {
+            int totalElementsWithSameStep = queue.size();
+            while (totalElementsWithSameStep-- > 0) {
+                final int[] pair = queue.poll();
+                final int node = pair[0];
+                final int distanceSoFar = pair[1];
+                final List<int[]> neighbours = adjacency[node];
 
-                for (int[] next : neighbours) {
-                    int neighbour = next[1];
-                    int price = next[2];
-                    if (price + distance >= dist[neighbour]) continue;
-                    dist[neighbour] = price + distance;
-                    q.offer(new int[] {neighbour, dist[neighbour]});
+                for (final int[] neighbour : neighbours) {
+                    final int toNode = neighbour[1];
+                    final int newDistance = neighbour[2] + distanceSoFar;
+
+                    if (minimumDistance[toNode] > newDistance) {
+                        minimumDistance[toNode] = newDistance;
+                        queue.offer(new int[] { toNode, newDistance });
+                    }
                 }
             }
         }
 
-        return dist[dst] == INF ? -1 : dist[dst];
+        return minimumDistance[dst] == INF ? -1 : minimumDistance[dst];
     }
 }
