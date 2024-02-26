@@ -29,7 +29,6 @@ class PrimeFactor {
 
             // factors which are not set
             if (smallestPrimeFactors[i] == i) {
-                smallestPrimeFactors[i] = i;
                 for (int j = i * i; j < smallestPrimeFactors.length; j += i) {
                     if (smallestPrimeFactors[j] == j) {
                         smallestPrimeFactors[j] = i;
