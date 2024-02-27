@@ -5,7 +5,7 @@ class Solution {
 
         Arrays.sort(meetings, (a1, a2) -> a1[0] - a2[0]);
 
-        System.out.println(Arrays.deepToString(meetings));
+        //System.out.println(Arrays.deepToString(meetings));
 
         // [] -> 0 : time, 1 : endtime, 2 : room
         final PriorityQueue<int[]> rooms = new PriorityQueue<>(
