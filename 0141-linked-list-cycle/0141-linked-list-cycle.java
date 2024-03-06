@@ -11,7 +11,7 @@
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        final int visitedValue = Integer.MAX_VALUE;
+        final int visitedValue = Integer.MIN_VALUE;
         
         while (head != null) {
             if (head.val == visitedValue) return true;
