@@ -1,16 +1,18 @@
 class Solution {
     public int maxFrequencyElements(int[] nums) {
         
-        int maxFrequency = 0;
+        int maxFrequency = 0, sum = 0;
         final int[] freq = new int[101];
         for (final int num : nums) {
             freq[num]++;
-            maxFrequency = Math.max(maxFrequency, freq[num]);
-        }
-        
-        int sum = 0;
-        for (int f : freq) {
-            if (f == maxFrequency) sum += f;
+            if (maxFrequency < freq[num]) {
+                sum = freq[num];
+                maxFrequency = sum;
+            } else if (maxFrequency == freq[num]) {
+                sum += freq[num]; 
+            }
+            
+            //System.out.println(Arrays.toString(freq));
         }
         
         return sum;
