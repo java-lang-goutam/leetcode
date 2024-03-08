@@ -5,11 +5,12 @@ class Solution {
         final int[] freq = new int[101];
         for (final int num : nums) {
             freq[num]++;
-            if (maxFrequency < freq[num]) {
-                sum = freq[num];
+            final int currentFreq = freq[num];
+            if (maxFrequency < currentFreq) {
+                sum = currentFreq;
                 maxFrequency = sum;
-            } else if (maxFrequency == freq[num]) {
-                sum += freq[num]; 
+            } else if (maxFrequency == currentFreq) {
+                sum += currentFreq; 
             }
             
             //System.out.println(Arrays.toString(freq));
