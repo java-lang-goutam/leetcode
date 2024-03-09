@@ -11,8 +11,8 @@ class Solution {
             bigger = nums1;
         }
         
-        for (int ele : smaller) {
-            if (exists(bigger, ele)) return ele;
+        for (int ele : bigger) {
+            if (exists(smaller, ele)) return ele;
         }
         
         return -1;
