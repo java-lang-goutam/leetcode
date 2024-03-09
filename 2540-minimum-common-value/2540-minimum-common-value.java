@@ -1,8 +1,8 @@
 class Solution {
     public int getCommon(int[] nums1, int[] nums2) {
         
-        for (int ele : nums1) {
-            if (exists(nums2, ele)) return ele;
+        for (int ele : nums2) {
+            if (exists(nums1, ele)) return ele;
         }
         
         return -1;
