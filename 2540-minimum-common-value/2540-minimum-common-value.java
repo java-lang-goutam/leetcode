@@ -12,7 +12,7 @@ class Solution {
         
         int low = 0, high = nums.length - 1;
         while (low <= high) {
-            final int mid = low + ((high - low) >> 1);
+            final int mid = ((high + low) >> 1);
             final int middleEle = nums[mid];
             if (middleEle == ele) return true;
             if (middleEle < ele) low = mid + 1;
