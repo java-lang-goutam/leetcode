@@ -1,18 +1,8 @@
 class Solution {
     public int getCommon(int[] nums1, int[] nums2) {
         
-        final int[] smaller, bigger;
-        
-        if (nums1.length < nums2.length) {
-            smaller = nums1;
-            bigger = nums2;
-        } else {
-            smaller = nums2;
-            bigger = nums1;
-        }
-        
-        for (int ele : bigger) {
-            if (exists(smaller, ele)) return ele;
+        for (int ele : nums1) {
+            if (exists(nums2, ele)) return ele;
         }
         
         return -1;
