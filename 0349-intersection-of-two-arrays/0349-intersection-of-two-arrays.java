@@ -9,7 +9,8 @@ class Solution {
 
         final List<Integer> list = new ArrayList<>();
         for (int num : nums2) {
-            if (count[num]-- == 1) list.add(num);
+            if (count[num] == 1) list.add(num);
+            count[num] = 0;
         }
 
         final int length = list.size();
