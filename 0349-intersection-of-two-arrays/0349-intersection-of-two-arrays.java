@@ -7,8 +7,8 @@ class Solution {
         for (int num : nums1) {
             count[num] = 1;
         }
-
-        final List<Integer> list = new ArrayList<>(1000);
+        
+        final List<Integer> list = new ArrayList<>(Math.min(nums1.length, nums2.length));
         for (int num : nums2) {
             if (count[num] == 1) list.add(num);
             count[num] = 0;
