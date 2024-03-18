@@ -6,9 +6,7 @@ class Solution {
         int arrows = 1;
         int[] lastProcessed = points[0];
 
-        for (int i = 1, length = points.length; i < length; i++) {
-            final int[] point = points[i];
-
+        for (final int[] point : points) {
             // no interaction
             if (lastProcessed[1] < point[0]) {
                 lastProcessed = point;
