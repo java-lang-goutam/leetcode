@@ -3,7 +3,7 @@ class Solution {
     public int findMinArrowShots(int[][] points) {
         Arrays.sort(points, (a1, a2) -> Integer.compare(a1[0], a2[0]));
         
-        System.out.println(Arrays.deepToString(points));
+        //System.out.println(Arrays.deepToString(points));
 
         int size = 1;
         int[] lastProcessed = points[0];
