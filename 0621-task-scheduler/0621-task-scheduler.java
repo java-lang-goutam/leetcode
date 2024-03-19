@@ -21,13 +21,7 @@ class Solution {
             }
         }
         
-        // Calculate idle slots, available tasks, and idles needed
-        int partCount = maximum - 1;
-        int partLength = n - (maxCount - 1);
-        int emptySlots = partCount * partLength;
-        int availableTasks = tasks.length - maximum * maxCount;
-        int idles = Math.max(0, emptySlots - availableTasks);
-        
-        return tasks.length + idles;
+        int time = (maximum - 1) * (n + 1) + maxCount;
+        return Math.max(time, tasks.length);
     }
 }
