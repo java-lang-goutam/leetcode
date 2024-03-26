@@ -19,7 +19,7 @@ class Solution {
             if (nums[index] > 0) nums[index] *= -1;
         }
 
-        // find first positive element
+        // find first positive number
         int i = 0;
         while (i < size) {
             if (nums[i] >= 0) break;
