@@ -18,17 +18,28 @@ class Solution {
         if (wordIndex == word.length() - 1) return true;
         visited[x][y] = true;
 
-        final int[][] move = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
-        for (int i = 0; i < 4; i++) {
-            int newX = x + move[i][0];
-            if (newX < 0 || newX == m) continue;
+        // up
+        if (x > 0) {
+            int newX = x - 1;
+            if (board[newX][y] == word.charAt(wordIndex + 1) && !visited[newX][y] && check(board, word, wordIndex + 1, visited, newX, y, m, n)) return true;
+        }
 
-            int newY = y + move[i][1];
-            if (newY < 0 || newY == n) continue;
+        // down
+        if (x < m - 1) {
+            int newX = x + 1;
+            if (board[newX][y] == word.charAt(wordIndex + 1) && !visited[newX][y] && check(board, word, wordIndex + 1, visited, newX, y, m, n)) return true;
+        }
 
-            if (!visited[newX][newY] && board[newX][newY] == word.charAt(wordIndex + 1)) {
-                if (check(board, word, wordIndex + 1, visited, newX, newY, m, n)) return true;
-            }
+        // left
+        if (y > 0) {
+            int newY = y - 1;
+            if (board[x][newY] == word.charAt(wordIndex + 1) && !visited[x][newY] && check(board, word, wordIndex + 1, visited, x, newY, m, n)) return true;
+        }
+
+        // right
+        if (y < n - 1) {
+            int newY = y + 1;
+            if (board[x][newY] == word.charAt(wordIndex + 1) && !visited[x][newY] && check(board, word, wordIndex + 1, visited, x, newY, m, n)) return true;
         }
 
         visited[x][y] = false;
