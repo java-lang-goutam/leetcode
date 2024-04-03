@@ -1,53 +1,37 @@
 class Solution {
-    private boolean[][] included;
-    private char[][] board;
-    private String word;
 
     public boolean exist(char[][] board, String word) {
-        final int totalRows = board.length;
-        final int totalCols = board[0].length;
-
-        this.word = word;
-        this.included = new boolean[totalRows][totalCols];
-        this.board = board;
-
-        for (int i = 0; i < totalRows; i++) {
-            for (int j = 0; j < totalCols; j++) {
-                if (board[i][j] == word.charAt(0) && dfs(i, j, 0, included, board, word)) return true;
+        final int m = board.length;
+        final int n = board[0].length;
+        final char firstChar = word.charAt(0);
+        final boolean[][] visited = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == firstChar && check(board, word, 0, visited, i, j, m, n)) return true;
             }
         }
 
         return false;
     }
 
-    private boolean dfs(int i, int j, int index, boolean[][] included, char[][] board, String word) {
-        if (index == word.length() - 1) return true;
+    private boolean check(final char[][] board, final String word, final int wordIndex, final boolean[][] visited, final int x, final int y, final int m, final int n) {
+        if (wordIndex == word.length() - 1) return true;
+        visited[x][y] = true;
 
-        included[i][j] = true;
-        final char nextChar = word.charAt(index + 1);
+        final int[][] move = { { 0, 1 }, { 0, -1 }, { -1, 0 }, { 1, 0 } };
+        for (int i = 0; i < 4; i++) {
+            int newX = x + move[i][0];
+            if (newX < 0 || newX == m) continue;
 
-        // up check
-        if (i > 0 && board[i - 1][j] == nextChar && !included[i - 1][j] && dfs(i - 1, j, index + 1, included, board, word)) {
-            return true;
+            int newY = y + move[i][1];
+            if (newY < 0 || newY == n) continue;
+
+            if (!visited[newX][newY] && board[newX][newY] == word.charAt(wordIndex + 1)) {
+                if (check(board, word, wordIndex + 1, visited, newX, newY, m, n)) return true;
+            }
         }
 
-        // down check
-        if (i < board.length - 1 && board[i + 1][j] == nextChar && !included[i + 1][j] && dfs(i + 1, j, index + 1, included, board, word)) {
-            return true;
-        }
-
-        // left check
-        if (j > 0 && board[i][j - 1] == nextChar && !included[i][j - 1] && dfs(i, j - 1, index + 1, included, board, word)) {
-            return true;
-        }
-
-        // right check
-        if (j < board[0].length - 1 && board[i][j + 1] == nextChar && !included[i][j + 1] && dfs(i, j + 1, index + 1, included, board, word)) {
-            return true;
-        }
-        
-        included[i][j] = false;
-        
+        visited[x][y] = false;
         return false;
     }
 }
