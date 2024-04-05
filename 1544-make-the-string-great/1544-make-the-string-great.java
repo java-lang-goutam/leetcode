@@ -1,13 +1,8 @@
 class Solution {
 
     private boolean check(final char c1, final char c2) {
-        if (Character.isUpperCase(c2)) {
-            return Character.toLowerCase(c2) == c1;
-        } else if (Character.isUpperCase(c1)) {
-            return Character.toLowerCase(c1) == c2;
-        }
-
-        return false;
+        return (Character.isUpperCase(c2) && (Character.toLowerCase(c2) == c1)) || 
+            (Character.isUpperCase(c1) && (Character.toLowerCase(c1) == c2));
     }
 
     public String makeGood(String s) {
