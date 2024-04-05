@@ -1,8 +1,7 @@
 class Solution {
 
-    private boolean check(final char c1, final char c2) {
-        return (Character.isUpperCase(c2) && (Character.toLowerCase(c2) == c1)) || 
-            (Character.isUpperCase(c1) && (Character.toLowerCase(c1) == c2));
+    private boolean check(final int c1, final int c2) {
+        return (c2 < c1 && (c2 + 32) == c1) || (c1 < c2 && (c1 + 32) == c2);
     }
 
     public String makeGood(String s) {
