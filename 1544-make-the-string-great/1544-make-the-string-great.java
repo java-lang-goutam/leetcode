@@ -5,17 +5,12 @@ class Solution {
     }
 
     public String makeGood(String s) {
-        final Stack<Character> stack = new Stack<>();
-        stack.push(s.charAt(0));
-
-        for (int i = 1, length = s.length(); i < length; i++) {
+        final StringBuilder sb = new StringBuilder(s.length());
+        for (int i = 0, length = s.length(); i < length; i++) {
             final char c = s.charAt(i);
-            if (stack.isEmpty() || !check(stack.peek(), c)) stack.push(c); else stack.pop();
-        }
-
-        final StringBuilder sb = new StringBuilder(stack.size());
-        for (char c : stack) {
-            sb.append(c);
+            final int lastIndex = sb.length() - 1;
+            if (lastIndex == -1 || !check(sb.charAt(lastIndex), c)) sb.append(c); 
+            else sb.deleteCharAt(lastIndex);
         }
 
         return sb.toString();
