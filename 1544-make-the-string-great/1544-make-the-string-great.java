@@ -6,7 +6,7 @@ class Solution {
     }
 
     public String makeGood(String s) {
-        final StringBuilder sb = new StringBuilder(s.length());
+        final StringBuilder sb = new StringBuilder(s.length() + 1);
         for (int i = 0, length = s.length(); i < length; i++) {
             final char c = s.charAt(i);
             final int lastIndex = sb.length() - 1;
