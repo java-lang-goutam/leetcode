@@ -1,7 +1,8 @@
 class Solution {
 
     private boolean check(final int c1, final int c2) {
-        return (c2 < c1 && (c2 + 32) == c1) || (c1 < c2 && (c1 + 32) == c2);
+        final int diff = c1 - c2;
+        return diff == 32 || diff == -32;
     }
 
     public String makeGood(String s) {
