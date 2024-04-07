@@ -17,7 +17,7 @@ class Solution {
         ListNode curr = lists[0];
 
         for (int i = 1; i < length; i++) {
-            if (lists[i] != null) curr = merge(curr, lists[i]);
+            curr = merge(curr, lists[i]);
         }
 
         return curr;
