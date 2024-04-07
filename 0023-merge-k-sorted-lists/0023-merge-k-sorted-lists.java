@@ -14,36 +14,28 @@ class Solution {
         final int length = lists.length;
         if (length == 0) return null;
 
-        ListNode curr = lists[0];
-
-        for (int i = 1; i < length; i++) {
-            curr = merge(curr, lists[i]);
+        final PriorityQueue<ListNode> pq = new PriorityQueue<>((n1, n2) -> {
+            return n1.val - n2.val;
+        });
+        
+        for(final ListNode node : lists) {
+            if(node != null) pq.offer(node);
         }
-
-        return curr;
+        
+        final ListNode tempHead = new ListNode();
+        ListNode curr = tempHead;
+        
+        while (!pq.isEmpty()) {
+            ListNode node = pq.poll();
+            ListNode next = node.next;
+            
+            node.next = null;
+            curr.next = node;
+            curr = node;
+            if (next != null) pq.offer(next);
+        }
+        
+        return tempHead.next;
     }
 
-    public ListNode merge(ListNode list1, ListNode list2) {
-        final ListNode temp = new ListNode();
-        ListNode curr = temp;
-
-        while (list1 != null && list2 != null) {
-            if (list1.val < list2.val) {
-                curr.next = list1;
-                list1 = list1.next;
-            } else {
-                curr.next = list2;
-                list2 = list2.next;
-            }
-            curr = curr.next;
-        }
-
-        if (list1 != null) {
-            curr.next = list1;
-        } else {
-            curr.next = list2;
-        }
-
-        return temp.next;
-    }
 }
