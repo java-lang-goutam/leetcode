@@ -5,7 +5,7 @@ https://www.youtube.com/watch?v=uyetDh-DyDg
 class Solution {
 
     public void solveSudoku(char[][] board) {
-        solve(board, 0, 0);
+        solve(board);
     }
 
     public boolean isValid(char[][] board, char val, int row, int col) {
@@ -26,16 +26,14 @@ class Solution {
         return true;
     }
 
-    public boolean solve(char[][] board, int r, int c) {
-        //System.out.println("row : "+ r + ", col : " + c);
-
+    public boolean solve(char[][] board) {
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
                 if (board[row][col] == '.') {
                     for (char val = '1'; val <= '9'; val++) {
                         if (isValid(board, val, row, col)) {
                             board[row][col] = val;
-                            if (solve(board, row, col)) return true;
+                            if (solve(board)) return true;
                             board[row][col] = '.';
                         }
                     }
