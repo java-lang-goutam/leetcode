@@ -1,16 +1,16 @@
 class UnionFind {
     private final int N;
     private final int[] parent;
-    private final int[] size;
+    //private final int[] size;
 
     public UnionFind(final int N) {
         this.N = N;
         this.parent = new int[N];
-        this.size = new int[N];
+        //this.size = new int[N];
 
         for (int i = 0; i < N; i++) {
             parent[i] = i;
-            size[i] = 1;
+            //size[i] = 1;
         }
     }
 
@@ -23,15 +23,17 @@ class UnionFind {
         final int parentX = find(x);
         final int parentY = find(y);
         
-        if (parentX == parentY) return;
+        if (parentX != parentY) parent[parentX] = parentY;
         
-        if (size[x] <= size[y]) {
-            parent[parentX] = parentY;
-            size[parentY] += size[parentX];
-        } else {
-            parent[parentY] = parentX;
-            size[parentX] += size[parentY];
-        }
+//         if (parentX == parentY) return;
+        
+//         if (size[x] <= size[y]) {
+//             parent[parentX] = parentY;
+//             size[parentY] += size[parentX];
+//         } else {
+//             parent[parentY] = parentX;
+//             size[parentX] += size[parentY];
+//         }
     }
 }
 
