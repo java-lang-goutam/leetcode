@@ -25,10 +25,9 @@ class Solution {
         while ((size = queue.size()) > 0) {
             count++;
             for (int i = 0; i < size; i++) {
-                final String wheelPos = queue.poll();
-                final StringBuilder newPos = new StringBuilder(wheelPos);
+                final StringBuilder newPos = new StringBuilder(queue.poll());
                 for (int pos = 0; pos < 4; pos++) {
-                    final char posChar = wheelPos.charAt(pos);
+                    final char posChar = newPos.charAt(pos);
 
                     // next combination
                     newPos.setCharAt(pos, getNextChar(posChar));
