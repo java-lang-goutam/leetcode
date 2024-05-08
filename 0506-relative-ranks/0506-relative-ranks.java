@@ -26,9 +26,8 @@ class Solution {
         if (n >= 2) result[hashTable[score[n - 2]]] = "Silver Medal";
         if (n >= 3) result[hashTable[score[n - 3]]] = "Bronze Medal";
 
-        int pos = 4;
-        for (int i = n - 4; i >= 0; i--) {
-            result[hashTable[score[i]]] = Integer.toString(pos++);
+        for (int i = n - 4, pos = 4; i >= 0; i--, pos++) {
+            result[hashTable[score[i]]] = Integer.toString(pos);
         }
 
         return result;
