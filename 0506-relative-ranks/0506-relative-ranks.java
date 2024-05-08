@@ -28,7 +28,7 @@ class Solution {
 
         int pos = 4;
         for (int i = n - 4; i >= 0; i--) {
-            result[hashTable[score[i]]] = String.valueOf(pos++);
+            result[hashTable[score[i]]] = pos++ + "";
         }
 
         return result;
