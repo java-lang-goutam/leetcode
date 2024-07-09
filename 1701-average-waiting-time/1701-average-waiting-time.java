@@ -1,7 +1,8 @@
 class Solution {
     public double averageWaitingTime(int[][] customers) {
         
-        long totalWaitingTime = 0, currentTime = 0;
+        long totalWaitingTime = 0;
+        int currentTime = 0;
         
         for (final int[] customer : customers) {
             final int arrivalTime = customer[0];
